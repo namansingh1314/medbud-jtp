@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - app-network
+    volumes:
+      - ./Backend:/app
+      - backend_session:/app/flask_session
+      - backend_uploads:/app/uploads
+    environment:
+      - FLASK_APP=main.py
+      - FLASK_ENV=development
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@db:5432/medicine_db
+      - SECRET_KEY=your-secure-secret-key-here
+      - SESSION_TYPE=filesystem
+      - SESSION_FILE_DIR=/app/flask_session
+      - CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+
+  db:
+    build:
+      context: ./Database
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=medicine_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+  backend_session:
+  backend_uploads:
+
+networks:
+  app-network:
+    driver: bridge
