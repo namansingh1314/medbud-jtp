@@ -107,12 +107,14 @@ export default function Nav() {
                     cursor={'pointer'}
                     minW={0}
                   >
-                    <Avatar size={'sm'} name={user.username} />
+                    <Avatar size={'sm'} name={user.username} bg="blue.500"
+                    color="white"/>
                   </MenuButton>
                   <MenuList alignItems={'center'}>
                     <br />
                     <Center>
-                      <Avatar size={'2xl'} name={user.username} />
+                      <Avatar size={'2xl'} name={user.username} bg="blue.500"
+                    color="white" />
                     </Center>
                     <br />
                     <Center>

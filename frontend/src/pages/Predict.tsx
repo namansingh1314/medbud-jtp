@@ -287,15 +287,15 @@ const Predict = () => {
               <Stack spacing={6}>
                 <Box>
                   <Heading size="lg" color={useColorModeValue("blue.600", "blue.300")} mb={4}>
-                    {prediction.predicted_disease}
+                    {prediction?.predicted_disease}
                   </Heading>
                   <Text fontSize="lg" color={useColorModeValue("gray.700", "gray.300")} mb={4}>
-                    {prediction.description}
+                    {prediction?.description}
                   </Text>
                   <Box mb={4}>
                     <Text fontWeight="medium" mb={2}>Selected Symptoms:</Text>
                     <Stack direction="row" flexWrap="wrap" spacing={2}>
-                      {prediction.symptoms.map((symptom, index) => (
+                      {prediction?.symptoms?.map((symptom, index) => (
                         <Badge
                           key={index}
                           colorScheme="blue"
@@ -327,7 +327,7 @@ const Predict = () => {
                       Recommended Medications
                     </Heading>
                     <List spacing={3}>
-                      {prediction.medications.map((med, index) => (
+                      {prediction?.medications?.map((med, index) => (
                         <ListItem
                           key={index}
                           fontSize="md"
@@ -362,7 +362,7 @@ const Predict = () => {
                       Diet Recommendations
                     </Heading>
                     <List spacing={3}>
-                      {prediction.diet.map((item, index) => (
+                      {prediction?.diet?.map((item, index) => (
                         <ListItem
                           key={index}
                           fontSize="md"
@@ -397,7 +397,7 @@ const Predict = () => {
                       Workout Plan
                     </Heading>
                     <List spacing={3}>
-                      {prediction.workout.map((item, index) => (
+                      {prediction?.workout?.map((item, index) => (
                         <ListItem
                           key={index}
                           fontSize="md"
@@ -432,7 +432,7 @@ const Predict = () => {
                       Precautions
                     </Heading>
                     <List spacing={3}>
-                      {prediction.precautions.map((item, index) => (
+                      {prediction?.precautions?.map((item, index) => (
                         <ListItem
                           key={index}
                           fontSize="md"

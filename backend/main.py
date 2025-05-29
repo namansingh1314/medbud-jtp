@@ -62,8 +62,13 @@ try:
     medications = pd.read_csv(os.path.join(DATASET_DIR, 'medications.csv'))
     diets = pd.read_csv(os.path.join(DATASET_DIR, 'diets.csv'))
 
+    # Load and configure SVC model with probability estimates enabled
     with open(os.path.join(MODELS_DIR, 'svc.pkl'), 'rb') as f:
         svc = pickle.load(f)
+    # Enable probability estimates
+    svc.probability = True
+    # Set decision function shape to 'ovr' for better multi-class prediction
+    svc.decision_function_shape = 'ovr'
 
     print("Model loaded successfully")
 
@@ -109,8 +114,24 @@ def get_predicted_value(symptoms):
     for symptom in valid_symptoms:
         input_vector[symptom] = 1
 
-    prediction = svc.predict(input_vector)[0]
-    return diseases_list[prediction]
+    # Get probability estimates for each class
+    try:
+        probabilities = svc.predict_proba(input_vector)[0]
+        # Get top 3 predictions with probabilities above threshold
+        threshold = 0.2  # Minimum probability threshold
+        top_predictions = []
+        for prob_idx, prob in enumerate(probabilities):
+            if prob > threshold:
+                top_predictions.append((diseases_list[prob_idx], prob))
+        
+        # Sort by probability and get the highest one
+        if top_predictions:
+            top_predictions.sort(key=lambda x: x[1], reverse=True)
+            return top_predictions[0][0]
+    except:
+        # Fallback to regular prediction if probabilities not available
+        prediction = svc.predict(input_vector)[0]
+        return diseases_list[prediction]
 
 def login_required(f):
     @wraps(f)
@@ -249,12 +270,17 @@ def predict(current_user):
             workout=workout,
             precautions=precautions
         )
-        db.session.add(prediction)
-        db.session.commit()
+        try:
+            db.session.add(prediction)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print("DB commit failed:", e)
+            return jsonify({'status': 'error', 'message': 'Failed to save prediction history'}), 500
 
         return jsonify({
             'status': 'success',
-            'disease': predicted_disease,
+            'predicted_disease': predicted_disease,
             'description': description,
             'precautions': precautions,
             'medications': medications,

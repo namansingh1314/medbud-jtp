@@ -8,6 +8,9 @@ export default defineConfig({
       include: "**/*.tsx",
     }),
   ],
+  optimizeDeps: {
+    include: ['@emotion/use-insertion-effect-with-fallbacks']
+  },
 
   server: {
     host: true,
