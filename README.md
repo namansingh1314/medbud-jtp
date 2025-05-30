@@ -1,7 +1,7 @@
 # Med bud
 [![Watch the video](https://img.youtube.com/vi/EtY3cMuWxfQ/hqdefault.jpg)](https://youtu.be/EtY3cMuWxfQ?si=BZKkF9VhnauBSoai)
 
-
+BONUS : Live deployment with aws EC2 ->  https://capstone-mu-three.vercel.app/
 ## Overview
 
 The Medicine Recommendation System is an intelligent healthcare application that combines machine learning with a modern web interface to predict diseases based on symptoms and provide personalized health recommendations. The system consists of two main components:
