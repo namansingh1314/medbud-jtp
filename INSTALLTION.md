@@ -1,5 +1,26 @@
 # Installation Guide
 Simply Run docker-compose up --build to run this project ocally make sure docker desktop is running
+## Docker Setup
+1. Open Docker Desktop and ensure it's running.
+
+2. Open a terminal in the project root directory.
+
+3. Build the Docker containers:
+
+```
+docker compose build
+```
+
+4. Start the containers:
+
+```
+docker compose up
+```
+
+The services will be available at:
+
+Frontend: http://localhost:5173
+
 ## Prerequisites
 
 - Python 3.8 or higher
@@ -57,28 +78,6 @@ Simply Run docker-compose up --build to run this project ocally make sure docker
    ```
    The frontend application will start on http://localhost:5173
 
-## Docker Setup
-1. Open Docker Desktop and ensure it's running.
-
-2. Open a terminal in the project root directory.
-
-3. Build the Docker containers:
-
-```
-docker compose build
-```
-
-4. Start the containers:
-
-```
-docker compose up
-```
-
-The services will be available at:
-
-Backend: http://localhost:5000
-
-Frontend: http://localhost:5173
 
 ## Model and Dataset Setup
 
