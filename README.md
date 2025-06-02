@@ -120,7 +120,7 @@ Output: JSON with disease prediction and recommendations
 ## Setup Instructions
 
 ### Using Docker (Recommended)
-
+!Make sure Docker desktop is running in the background!
 1. **Prerequisites**
 
    - Docker
