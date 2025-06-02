@@ -19,7 +19,7 @@ This is the frontend application for the Medicine Recommendation System, built w
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/Medicine-Recommendation-System.git
+git clone https://github.com/namansingh1314/medbud-jtp.git
 cd Medicine-Recommendation-System/Frontend
 ```
 
